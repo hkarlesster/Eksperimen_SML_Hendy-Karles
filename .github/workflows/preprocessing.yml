@@ -11,14 +11,6 @@ on:
 env:
     CSV_URL: "./heart_disease.csv"
 
-#jobs:
-  #preprocess:
-    #runs-on: ubuntu-latest
-
-    #steps:
-    #- name: Checkout repository
-      #uses: actions/checkout@v3
-
 jobs:
   preprocess:
     runs-on: ubuntu-latest
@@ -38,21 +30,6 @@ jobs:
 
     - name: Run preprocessing
       run: python preprocessing/automate_Hendy.py
-
-    #- name: Commit and push preprocessed files
-      #run: |
-        #git config --global user.name ${{ secrets.USERNAME }}
-        #git config --global user.email ${{ secrets.EMAIL }}
-        #git add preprocessing/heart_disease_preprocessed.csv
-        #git add .
-        
-        # Cek apakah ada perubahan yang staged
-        #if [ -n "$(git diff --cached --name-only)" ]; then
-          #git commit -m "Auto update preprocessed data"
-          #git push
-        #else
-          #echo "Tidak ada perubahan pada file preprocessing"
-        #fi
 
     - name: Commit and push preprocessed files
       run: |
