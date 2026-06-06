@@ -70,8 +70,17 @@ label_mappings = {}
 for col in categorical_cols:
     mask = df[col].notna()
 
+    #df.loc[mask, col] = encoder.fit_transform(df.loc[mask, col])
+    # Around line 73 in automate_Hendy.py
+    # 1. Cast the column to object type so it accepts encoded integers
+    df[col] = df[col].astype(object)
+
+    # 2. Perform your original mask encoding
     df.loc[mask, col] = encoder.fit_transform(df.loc[mask, col])
 
+    # 3. (Optional) Convert the column to an optimal integer type afterward
+    3df[col] = pd.to_numeric(df[col], errors='coerce').astype('Int64')
+    
     label_mappings[col] = dict(zip(encoder.classes_, encoder.transform(encoder.classes_)))
 
 print("Data info:")
