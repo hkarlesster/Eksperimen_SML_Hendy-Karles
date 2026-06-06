@@ -36,7 +36,7 @@ jobs:
         git config --global user.name "github-actions[bot]"
         git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
         
-        git add .
+        git add preprocessing/heart_disease_preprocessed.csv
         
         # Only commit if there are actually changes to avoid another exit code 1 error
         git diff-index --quiet HEAD || git commit -m "Update preprocessed files"
