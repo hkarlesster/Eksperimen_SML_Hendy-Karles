@@ -11,13 +11,22 @@ on:
 env:
     CSV_URL: "./heart_disease.csv"
 
+#jobs:
+  #preprocess:
+    #runs-on: ubuntu-latest
+
+    #steps:
+    #- name: Checkout repository
+      #uses: actions/checkout@v3
+
 jobs:
   preprocess:
     runs-on: ubuntu-latest
-
+    permissions:
+      contents: write  # Allows the workflow to push changes back to the repo
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Set up Python
       uses: actions/setup-python@v4
@@ -38,9 +47,18 @@ jobs:
         git add .
         
         # Cek apakah ada perubahan yang staged
-        if [ -n "$(git diff --cached --name-only)" ]; then
-          git commit -m "Auto update preprocessed data"
-          git push
-        else
-          echo "Tidak ada perubahan pada file preprocessing"
-        fi
+        #if [ -n "$(git diff --cached --name-only)" ]; then
+          #git commit -m "Auto update preprocessed data"
+          #git push
+        #else
+          #echo "Tidak ada perubahan pada file preprocessing"
+        #fi
+
+    - name: Commit and push preprocessed files
+      run: |
+        git config --global user.name "github-actions[bot]"
+        git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+        git add .
+        # Only commit if there are actually changes to avoid another exit code 1 error
+        git diff-index --quiet HEAD || git commit -m "Update preprocessed files"
+        git push
