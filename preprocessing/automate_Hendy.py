@@ -79,7 +79,8 @@ for col in categorical_cols:
     df.loc[mask, col] = encoder.fit_transform(df.loc[mask, col])
 
     # 3. (Optional) Convert the column to an optimal integer type afterward
-    3df[col] = pd.to_numeric(df[col], errors='coerce').astype('Int64')
+    #3df[col] = pd.to_numeric(df[col], errors='coerce').astype('Int64')
+    df[col] = pd.to_numeric(df[col], errors='coerce').astype('Int64')
     
     label_mappings[col] = dict(zip(encoder.classes_, encoder.transform(encoder.classes_)))
 
