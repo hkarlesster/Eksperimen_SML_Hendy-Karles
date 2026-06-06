@@ -39,12 +39,12 @@ jobs:
     - name: Run preprocessing
       run: python preprocessing/automate_Hendy.py
 
-    - name: Commit and push preprocessed files
-      run: |
+    #- name: Commit and push preprocessed files
+      #run: |
         git config --global user.name ${{ secrets.USERNAME }}
         git config --global user.email ${{ secrets.EMAIL }}
         #git add preprocessing/heart_disease_preprocessed.csv
-        git add .
+        #git add .
         
         # Cek apakah ada perubahan yang staged
         #if [ -n "$(git diff --cached --name-only)" ]; then
@@ -58,7 +58,10 @@ jobs:
       run: |
         git config --global user.name "github-actions[bot]"
         git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+        
         git add .
+        
         # Only commit if there are actually changes to avoid another exit code 1 error
         git diff-index --quiet HEAD || git commit -m "Update preprocessed files"
+        
         git push
