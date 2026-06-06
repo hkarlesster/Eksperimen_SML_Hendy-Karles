@@ -25,7 +25,7 @@ jobs:
         python-version: '3.12.7'
 
     - name: Install dependencies
-      run: pip install numpy pandas matplotlib seaborn warnings missingno scikit-learn 
+      run: pip install numpy pandas matplotlib seaborn missingno scikit-learn 
 
     - name: Run preprocessing
       run: python preprocessing/automate_Hendy.py
